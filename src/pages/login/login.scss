@@ -1,4 +1,4 @@
-.logo{
+img{
     margin: 0 auto;
     display: block;
 }
@@ -6,4 +6,9 @@
 ion-card ion-row{
     padding: 1em;
     float: right;
+
+    div button:nth-of-type(1){
+        margin-right: 1em;
+
+    }
 }
