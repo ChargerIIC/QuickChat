@@ -19,7 +19,7 @@ export class LoginPage {
 
   navigateToPage(pageName: string){
     //Not certain I'm a huge fan of this pattern. We only have two options but we are magic-string matching to one
-    pageName === 'InboxPage' ? this.navCtrl.setRoot(pageName) : this.navCtrl.push(pageName);
+    pageName === 'TabsPage' ? this.navCtrl.setRoot(pageName) : this.navCtrl.push(pageName);
   }
 
 }

@@ -14,11 +14,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TabsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+tab1Root: string = 'InboxPage';
+tab2Root: string = 'ChannelsPage';
+tab3Root: string = 'ProfilePage';
+
+  constructor() {
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TabsPage');
-  }
 
 }
