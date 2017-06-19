@@ -14,13 +14,26 @@ import { LoginResponse } from "../../models/loginResponse/loginResponse.interfac
 export class AuthenticationServiceProvider {
 
   constructor(private auth: AngularFireAuth) {
-    console.log('Hello AuthenticationServiceProvider Provider');
   }
 
   async login(account: Account){
     try{
       return <LoginResponse>{
         result: await this.auth.auth.signInWithEmailAndPassword(account.email, account.password),
+      }
+    }
+    catch(e){
+      return <LoginResponse>{
+        error: e
+      }
+    }
+
+  }
+
+  async registerUser(account: Account){
+    try{
+      return <LoginResponse>{
+        result: await this.auth.auth.createUserWithEmailAndPassword(account.email , account.password ),
       }
     }
     catch(e){

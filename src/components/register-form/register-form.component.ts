@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { ToastController } from 'ionic-angular';
 
 import { Account } from '../../models/account/account.interface';
+import { AuthenticationServiceProvider } from "../../providers/authentication-service/authentication-service.provider";
+import { LoginResponse } from "../../models/loginResponse/loginResponse.interface";
 /**
  * Generated class for the RegisterFormComponent component.
  *
@@ -15,26 +16,21 @@ import { Account } from '../../models/account/account.interface';
 })
 export class RegisterFormComponent {
 
+  @Output() registerStatus : EventEmitter<LoginResponse> = new EventEmitter<LoginResponse>();
+
   account: Account = {} as Account;
 
-  constructor(private afAuth: AngularFireAuth, private toast: ToastController) {
+  constructor(private auth: AuthenticationServiceProvider) {
   }
 
   async register(){
     try{
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(this.account.email , this.account.password );
-      this.toast.create({
-        message: "Account " + this.account.email + " sucessfully created!",
-        duration: 3000 //3 seconds
-      }).present;
-      console.log(result);
+      const result = await this.auth.registerUser(this.account);
+      this.registerStatus.emit(result);
     }
     catch(e){
       console.error(e);
-      this.toast.create({
-        message: e.message,
-        duration: 3000 //3 seconds
-      }).present();
+     this.registerStatus.emit(e);
     }
   }
 }
