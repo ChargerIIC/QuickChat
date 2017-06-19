@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController } from "ionic-angular";
+import { NavController, ToastController } from "ionic-angular";
+import { AngularFireAuth } from 'angularfire2/auth';
+
+import { Account } from '../../models/account/account.interface';
 
 /**
  * Generated class for the LoginFormComponent component.
@@ -13,7 +16,29 @@ import { NavController } from "ionic-angular";
 })
 export class LoginFormComponent {
 
-  constructor(private navCtrl : NavController) {
+  account: Account = {} as Account;
+
+  constructor(private navCtrl : NavController, private afAuth: AngularFireAuth, private toast: ToastController) {
+  }
+
+  async login(){
+    try{
+      const result = await this.afAuth.auth.signInWithEmailAndPassword(this.account.email, this.account.password);
+      console.log(result);
+      this.toast.create({
+        message: 'Success!',
+        duration: 1000 //1 seconds
+      }).present();
+      this.navigateToPage('TabsPage');
+    }
+    catch(e){
+      console.error(e);
+      this.toast.create({
+        message: e.message,
+        duration: 3000 //3 seconds
+      }).present();
+
+    }
   }
 
   navigateToPage(pageName: string){
