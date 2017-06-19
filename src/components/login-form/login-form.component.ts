@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { NavController, ToastController } from "ionic-angular";
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Account } from '../../models/account/account.interface';
+import { LoginResponse } from "../../models/loginResponse/loginResponse.interface";
 
 /**
  * Generated class for the LoginFormComponent component.
@@ -16,34 +17,29 @@ import { Account } from '../../models/account/account.interface';
 })
 export class LoginFormComponent {
 
+  @Output() loginStatus: EventEmitter<LoginResponse> = new EventEmitter<LoginResponse>();
+
   account: Account = {} as Account;
 
-  constructor(private navCtrl : NavController, private afAuth: AngularFireAuth, private toast: ToastController) {
+  constructor(public navCtrl : NavController, private afAuth: AngularFireAuth) {
   }
 
   async login(){
     try{
-      const result = await this.afAuth.auth.signInWithEmailAndPassword(this.account.email, this.account.password);
-      console.log(result);
-      this.toast.create({
-        message: 'Success!',
-        duration: 1000 //1 seconds
-      }).present();
-      this.navigateToPage('TabsPage');
+      const result = {
+        result: await this.afAuth.auth.signInWithEmailAndPassword(this.account.email, this.account.password),
+      }
+      this.loginStatus.emit(result);
     }
     catch(e){
-      console.error(e);
-      this.toast.create({
-        message: e.message,
-        duration: 3000 //3 seconds
-      }).present();
-
+      const error: LoginResponse = {
+        error: e
+      }
+      this.loginStatus.emit(error);
     }
   }
 
-  navigateToPage(pageName: string){
-    //Not certain I'm a huge fan of this pattern. We only have two options but we are magic-string matching to one
-    pageName === 'TabsPage' ? this.navCtrl.setRoot(pageName) : this.navCtrl.push(pageName);
+  navigateToRegistration(){
+    this.navCtrl.push('RegisterPage')
   }
-
 }
