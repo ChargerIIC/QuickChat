@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { NavController, ToastController } from "ionic-angular";
+import { NavController } from "ionic-angular";
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Account } from '../../models/account/account.interface';
@@ -40,6 +40,6 @@ export class LoginFormComponent {
   }
 
   navigateToRegistration(){
-    this.navCtrl.push('RegisterPage')
+    this.navCtrl.push('RegisterPage');
   }
 }
