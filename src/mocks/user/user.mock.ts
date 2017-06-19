@@ -1,4 +1,4 @@
-import { User } from "../../models/user/user.model";
+import { User } from "../../models/user/user.interface";
 
 const userList: User[] = [
     {

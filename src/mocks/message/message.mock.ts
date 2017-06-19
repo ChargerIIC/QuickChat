@@ -1,5 +1,5 @@
 
-import { Message } from "../../models/message/message.model";
+import { Message } from "../../models/message/message.interface";
 import { USER_LIST } from "../user/user.mock";
 
 const messageList: Message[] = [
