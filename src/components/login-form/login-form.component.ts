@@ -1,9 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NavController } from "ionic-angular";
-import { AngularFireAuth } from 'angularfire2/auth';
 
 import { Account } from '../../models/account/account.interface';
 import { LoginResponse } from "../../models/loginResponse/loginResponse.interface";
+import { AuthenticationServiceProvider } from "../../providers/authentication-service/authentication-service.provider";
 
 /**
  * Generated class for the LoginFormComponent component.
@@ -21,22 +21,12 @@ export class LoginFormComponent {
 
   account: Account = {} as Account;
 
-  constructor(public navCtrl : NavController, private afAuth: AngularFireAuth) {
+  constructor(public navCtrl : NavController, private authService: AuthenticationServiceProvider) {
   }
 
   async login(){
-    try{
-      const result = {
-        result: await this.afAuth.auth.signInWithEmailAndPassword(this.account.email, this.account.password),
-      }
-      this.loginStatus.emit(result);
-    }
-    catch(e){
-      const error: LoginResponse = {
-        error: e
-      }
-      this.loginStatus.emit(error);
-    }
+    const result = await this.authService.login(this.account);
+    this.loginStatus.emit(result);
   }
 
   navigateToRegistration(){
