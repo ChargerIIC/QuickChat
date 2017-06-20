@@ -9,10 +9,12 @@
   <ion-navbar>
     <ion-title>View Profile</ion-title>
   </ion-navbar>
-
+    <ion-buttons end>
+      <button ion-button icon-only (click)="navigateToEditProfile()"><ion-icon name="edit"></ion-icon></button>
+    </ion-buttons>
 </ion-header>
 
 
 <ion-content padding>
-  <profile-view></profile-view>
+  <profile-view (existingProfile)="getExistingProfile($event)"></profile-view>
 </ion-content>
