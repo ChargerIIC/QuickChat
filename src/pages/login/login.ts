@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { User } from "firebase/app";
 
 import { LoginResponse } from "../../models/loginResponse/loginResponse.interface";
 import { DataServiceProvider } from "../../providers/data-service/data-service.provider";
-import { User } from "firebase/app";
 
 /**
  * Generated class for the LoginPage page.
