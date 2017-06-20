@@ -18,5 +18,7 @@ export class EditProfilePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-
+  saveProfileResult(event: Boolean){
+    event? this.navCtrl.setRoot('TabsPage') : console.error('User was not authenticated or user was not saved');
+  }
 }

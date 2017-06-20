@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { LoginResponse } from "../../models/loginResponse/loginResponse.interface";
+import { DataServiceProvider } from "../../providers/data-service/data-service.provider";
+import { User } from "firebase/app";
 
 /**
  * Generated class for the LoginPage page.
@@ -16,7 +18,7 @@ import { LoginResponse } from "../../models/loginResponse/loginResponse.interfac
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private toast: ToastController, private dataService: DataServiceProvider ) {
   }
 
   login(event : LoginResponse){
@@ -26,6 +28,10 @@ export class LoginPage {
         message: `Welcome to QuickChat, ${event.result.email}`,
         duration: 1000 //1 seconds
       }).present();
+      this.dataService.getProfile(<User>event.result).subscribe(profile => {
+        //if profile doesn't exist for a registered user we send them to the edit profile page
+        profile.val() ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage'); 
+      })
       this.navCtrl.setRoot('TabsPage');
     }
     else{

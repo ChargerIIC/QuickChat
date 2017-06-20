@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 import { User } from "firebase/app";
 
@@ -18,6 +18,8 @@ import { AuthenticationServiceProvider } from '../../providers/authentication-se
 })
 export class EditProfileFormComponent implements OnDestroy{
 
+  @Output() saveProfileResult: EventEmitter<Boolean> = new EventEmitter<Boolean>();
+
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
 
@@ -33,7 +35,7 @@ export class EditProfileFormComponent implements OnDestroy{
     if(this.authenticatedUser){
       this.profile.email = this.authenticatedUser.email;
       const result = await this.dataService.saveProfile(this.authenticatedUser, this.profile);
-      console.log(result);
+      this.saveProfileResult.emit(result);
     }
   }
 
