@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { User } from "firebase/app";
 

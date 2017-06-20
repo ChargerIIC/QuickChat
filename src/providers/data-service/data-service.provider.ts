@@ -23,7 +23,7 @@ export class DataServiceProvider {
     return this.profileObj.take(1);
   }
 
-  async saveProfile(user : User, profile: Profile): Promise<Boolean>{
+  async saveProfile(user : User, profile: Profile){
    this.profileObj = this.database.object(`/profiles/${user.uid}`); //TODO: see if we can call getProfile instead.
    try{ 
     await this.profileObj.set(profile);  
