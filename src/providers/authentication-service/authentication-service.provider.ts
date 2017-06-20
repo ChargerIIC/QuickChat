@@ -30,6 +30,10 @@ export class AuthenticationServiceProvider {
 
   }
 
+  getAuthenticatedUser(){
+    return this.auth.authState;
+  }
+
   async registerUser(account: Account){
     try{
       return <LoginResponse>{
