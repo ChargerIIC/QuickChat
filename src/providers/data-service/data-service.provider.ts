@@ -3,7 +3,7 @@ import "rxjs/add/operator/take";
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database'
 import { User } from 'firebase/app';
 import { Profile } from '../../models/profile/profile.interface';
-import { Observable } from "rxjs/Observable";
+//import { Observable } from "rxjs/Observable";
 /*
   Generated class for the DataServiceProvider provider.
 
@@ -14,6 +14,7 @@ import { Observable } from "rxjs/Observable";
 export class DataServiceProvider {
 
   profileObj: FirebaseObjectObservable<Profile>;
+  profileList: FirebaseObjectObservable<Profile>;
 
   constructor(private database: AngularFireDatabase) {
   }
@@ -34,4 +35,15 @@ export class DataServiceProvider {
     return false;
    }
   }
-}
+
+  searchForProfiles(searchTerm: string){
+    const query = this.database.list('/profiles', {
+      query:{
+        orderByChild: 'firstName',
+        equalTo: searchTerm,
+      }
+    })
+
+      return query.take(1);
+    }
+  }

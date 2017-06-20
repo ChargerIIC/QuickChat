@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { MESSAGE_LIST } from '../../mocks/message/message.mock';
-import { USER_LIST } from '../../mocks/user/user.mock';
 import { Message } from "../../models/message/message.interface";
 
 /**
@@ -24,5 +23,8 @@ export class InboxPage {
 
   }
 
+  navigateToSearchUsers(){
+    this.navCtrl.push('SearchUserPage');
+  }
 
 }
