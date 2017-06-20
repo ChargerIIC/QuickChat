@@ -22,7 +22,8 @@ export class ProfileSearchComponent {
   }
 
   searchUser(query: string){
-    this.dataService.searchForProfiles(query).subscribe(p => {
+    const normalizedQuery = query.trim(); //TODO: add casing normalization as well (needs search mod to match) //TODO: add split by space
+    this.dataService.searchForProfiles(normalizedQuery).subscribe(p => {
       //console.log(p);
       this.profileList = p;
     })
