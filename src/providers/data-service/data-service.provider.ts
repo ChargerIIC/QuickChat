@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import "rxjs/add/operator/take";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/mergeMap";
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database'
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database'
+import { database } from 'firebase';
 import { User } from 'firebase/app';
 
 import { Profile } from '../../models/profile/profile.interface';
@@ -32,6 +33,10 @@ export class DataServiceProvider {
     return this.authService.getAuthenticatedUser().map(u => u.uid).mergeMap(authId => this.database.object(`profiles/${authId}`)).take(1);
   }
 
+  getOnlineUsers() : FirebaseListObservable<Profile[]>{
+    return this.database.list(`online-users`);
+  }
+
   async saveProfile(user : User, profile: Profile){
    this.profileObj = this.database.object(`/profiles/${user.uid}`); //TODO: see if we can call getProfile instead.
    try{ 
@@ -42,6 +47,17 @@ export class DataServiceProvider {
     console.error(e);
     return false;
    }
+  }
+
+  setUserStatusToOnline(profile: Profile){
+    const ref = database().ref(`online-users/${profile.$key}`);
+    try{
+      ref.update({ ...profile});
+      ref.onDisconnect().remove();
+    }
+    catch(e){
+      console.error(e);
+    }
   }
 
   searchForProfiles(searchTerm: string){

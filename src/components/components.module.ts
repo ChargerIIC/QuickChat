@@ -8,6 +8,7 @@ import { ProfileViewComponent } from "./profile-view/profile-view.component";
 import { ProfileSearchComponent } from "./profile-search/profile-search.component";
 import { SendMessageComponent } from "./send-message/send-message.component";
 import { ChatMessageComponent } from "./chat-message/chat-message.component";
+import { OnlineUsersComponent } from "./online-users/online-users.component";
 
 @NgModule({
     declarations: [ 
@@ -17,7 +18,8 @@ import { ChatMessageComponent } from "./chat-message/chat-message.component";
         ProfileViewComponent,
         ProfileSearchComponent,
         SendMessageComponent,
-        ChatMessageComponent
+        ChatMessageComponent,
+        OnlineUsersComponent,
         ],
     imports: [
         IonicModule
@@ -29,7 +31,8 @@ import { ChatMessageComponent } from "./chat-message/chat-message.component";
         ProfileViewComponent,
         ProfileSearchComponent,
         SendMessageComponent,
-        ChatMessageComponent
+        ChatMessageComponent,
+        OnlineUsersComponent
         ]
 })
 
