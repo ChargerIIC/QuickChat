@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
 import "rxjs/add/operator/take";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/mergeMap";
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database'
 import { User } from 'firebase/app';
+
 import { Profile } from '../../models/profile/profile.interface';
+import { AuthenticationServiceProvider } from "../authentication-service/authentication-service.provider";
 //import { Observable } from "rxjs/Observable";
 /*
   Generated class for the DataServiceProvider provider.
@@ -16,12 +20,16 @@ export class DataServiceProvider {
   profileObj: FirebaseObjectObservable<Profile>;
   profileList: FirebaseObjectObservable<Profile>;
 
-  constructor(private database: AngularFireDatabase) {
+  constructor(private database: AngularFireDatabase, private authService: AuthenticationServiceProvider) {
   }
 
   getProfile(user: User){
     this.profileObj = this.database.object(`/profiles/${user.uid}`, {preserveSnapshot: true});
     return this.profileObj.take(1);
+  }
+
+  getAuthenticatedProfile(){
+    return this.authService.getAuthenticatedUser().map(u => u.uid).mergeMap(authId => this.database.object(`profiles/${authId}`)).take(1);
   }
 
   async saveProfile(user : User, profile: Profile){

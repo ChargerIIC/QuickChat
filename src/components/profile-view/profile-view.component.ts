@@ -25,13 +25,13 @@ export class ProfileViewComponent implements OnInit{
 
   ngOnInit(): void {
     this.loader.present();
-    this.authService.getAuthenticatedUser().subscribe((u: User) => {
-      this.dataService.getProfile(u).subscribe((p) => {
-        this.userProfile = <Profile>p.val();
-        this.existingProfile.emit(this.userProfile);
-      });
-    });
-    this.loader.dismiss();
+
+    this.dataService.getAuthenticatedProfile().subscribe(p => {
+      this.userProfile = p;
+      this.existingProfile.emit(this.userProfile);
+      this.loader.dismiss();
+    })
+
   }
 
 }
