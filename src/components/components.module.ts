@@ -6,7 +6,7 @@ import { RegisterFormComponent } from "./register-form/register-form.component";
 import { EditProfileFormComponent } from "./edit-profile-form/edit-profile-form.component";
 import { ProfileViewComponent } from "./profile-view/profile-view.component";
 import { ProfileSearchComponent } from "./profile-search/profile-search.component";
-
+import { SendMessageComponent } from "./send-message/send-message.component";
 
 @NgModule({
     declarations: [ 
@@ -15,6 +15,7 @@ import { ProfileSearchComponent } from "./profile-search/profile-search.componen
         EditProfileFormComponent, 
         ProfileViewComponent,
         ProfileSearchComponent,
+        SendMessageComponent,
         ],
     imports: [
         IonicModule
@@ -25,6 +26,7 @@ import { ProfileSearchComponent } from "./profile-search/profile-search.componen
         EditProfileFormComponent,
         ProfileViewComponent,
         ProfileSearchComponent,
+        SendMessageComponent,
         ]
 })
 
