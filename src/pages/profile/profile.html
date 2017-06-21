@@ -10,11 +10,12 @@
     <ion-title>View Profile</ion-title>
   </ion-navbar>
     <ion-buttons end>
-      <button ion-button icon-only (click)="navigateToEditProfile()"><ion-icon name="edit"></ion-icon></button>
+      <button ion-button icon-only (click)="navigateToEditProfile()"><ion-icon name="settings"></ion-icon></button>
     </ion-buttons>
 </ion-header>
 
 
 <ion-content padding>
   <profile-view (existingProfile)="getExistingProfile($event)"></profile-view>
+  <button ion-button block (click)="logout()">Logout</button>
 </ion-content>

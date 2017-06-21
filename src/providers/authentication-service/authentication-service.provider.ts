@@ -30,6 +30,10 @@ export class AuthenticationServiceProvider {
 
   }
 
+  logout(){
+    this.auth.auth.signOut();
+  }
+  
   getAuthenticatedUser(){
     return this.auth.authState;
   }
