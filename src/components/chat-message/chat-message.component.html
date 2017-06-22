@@ -1,13 +1,13 @@
-<ion-item *ngIf="chatIndex %2 ===0; else right">
-  <ion-avatar item-left><img src="assets/img/AvatarTemp.jpg" alt="{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}"></ion-avatar>
-  <h2>Lorem Ispum</h2>
-  <p>Then it began. A sound like distant fury, building within the casket. An agonising roar that was everywhere. The rage of a woken giant.</p>
+<ion-item no-lines *ngIf="chatMessage.userToId == userId; else from">
+  <ion-avatar item-left><img src="assets/img/AvatarTemp.jpg" alt="{{chatMessage?.userFromProfile.firstName}} {{chatMessage?.userFromProfile.lastName}}"></ion-avatar>
+  <h2>{{chatMessage?.userFromProfile.firstName}} {{chatMessage?.userFromProfile.lastName}}</h2>
+  <p>{{chatMessage?.content}}</p>
 </ion-item>
 
-<ng-template #right>
-  <ion-item class="message-right">
-    <ion-avatar item-right><img src="assets/img/AvatarTemp.jpg" alt="{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}"></ion-avatar>
-    <h2>Lorem Ispum</h2>
-    <p>Then it began. A sound like distant fury, building within the casket. An agonising roar that was everywhere. The rage of a woken giant.</p>
+<ng-template #from>
+  <ion-item no-lines class="message-right">
+    <ion-avatar item-right><img src="assets/img/AvatarTemp.jpg" alt="{{chatMessage?.userToProfile.firstName}} {{chatMessage?.userToProfile.lastName}}"></ion-avatar>
+    <h2>{{chatMessage?.userFromProfile.firstName}} {{chatMessage?.userFromProfile.lastName}}</h2>
+    <p>{{chatMessage?.content}}</p>
   </ion-item>
 </ng-template>
