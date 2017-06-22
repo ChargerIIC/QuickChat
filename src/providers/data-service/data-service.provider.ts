@@ -30,7 +30,9 @@ export class DataServiceProvider {
   }
 
   getAuthenticatedProfile(){
-    return this.authService.getAuthenticatedUser().map(u => u.uid).mergeMap(authId => this.database.object(`profiles/${authId}`)).take(1);
+    return this.authService.getAuthenticatedUser()
+      .map(u => u.uid)
+      .mergeMap(authId => this.database.object(`profiles/${authId}`)).take(1);
   }
 
   getOnlineUsers() : FirebaseListObservable<Profile[]>{
