@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
 import { Channel } from "../../models/channel/channel.interface";
 import { ChannelMessage } from "../../models/channelMessage/channelMessage.interface";
+import { Message } from "../../models/message/message.interface";
 // import { Http } from '@angular/http';
 // import 'rxjs/add/operator/map';
 
@@ -31,5 +32,9 @@ export class ChatServiceProvider {
 
   async sendChannelChatMessage(key: string, message: ChannelMessage){
     await this.database.list(`/channels/${key}`).push(message);
+  }
+
+  async sendChat(message: Message){
+    await this.database.list(`/messages`).push(message);
   }
 }
