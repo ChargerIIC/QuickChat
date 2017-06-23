@@ -48,6 +48,23 @@ export class ChatServiceProvider {
       })
   }
 
+  getLastMessagesForUser() : Observable<Message[]> {
+    return this.authService.getAuthenticatedUser()
+      .map(a => a.uid)
+      .mergeMap(uid => this.database.list(`/last-messages/${uid}`))
+      .mergeMap(msgIds => {
+        return Observable.forkJoin(
+          msgIds.map(msg => {
+            return this.database.object(`/messages/${msg.key}`)
+              .first()
+          }),
+          (...values)=> {
+            return values;
+          }
+        )
+      })
+  }
+
   async sendChannelChatMessage(key: string, message: ChannelMessage){
     await this.database.list(`/channels/${key}`).push(message);
   }
